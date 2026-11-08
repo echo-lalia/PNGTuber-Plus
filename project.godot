@@ -34,7 +34,7 @@ buses/channel_disable_time=0.0
 
 Saving="*res://autoload/saving.gd"
 Global="*res://autoload/global.gd"
-ElgatoStreamDeck="*res://addons/godot-streamdeck-addon/singleton.gd"
+ElgatoStreamDeck="*uid://ctdp78q04pvjj"
 DefaultAvatarData="*res://autoload/defaultAvatarData.gd"
 
 [debug]

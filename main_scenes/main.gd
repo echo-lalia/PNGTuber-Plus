@@ -632,3 +632,7 @@ func bgInputSprite(node, keys_pressed):
 		return
 	
 	spriteVisToggles.emit(keyStrings)
+
+
+func _on_data_folder_button_pressed() -> void:
+	OS.shell_open(ProjectSettings.globalize_path("user://"))

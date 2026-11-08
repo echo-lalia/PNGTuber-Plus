@@ -49,13 +49,6 @@ HSlider/styles/grabber_area = SubResource("StyleBoxEmpty_k8mk1")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_o06gb")
 HSlider/styles/slider = SubResource("StyleBoxEmpty_yi3nu")
 
-[sub_resource type="LabelSettings" id="LabelSettings_w0f1f"]
-font = ExtResource("14_62jp4")
-font_size = 31
-shadow_size = 5
-shadow_color = Color(0, 0, 0, 0.384314)
-shadow_offset = Vector2(2, 2)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4sd5"]
 size = Vector2(48, 48)
 
@@ -229,16 +222,6 @@ offset_bottom = -67.0
 text = "Zoom : 100%"
 horizontal_alignment = 2
 
-[node name="VersionLabels" type="Node2D" parent="ControlPanel" unique_id=789594339]
-
-[node name="Label" type="Label" parent="ControlPanel/VersionLabels" unique_id=115505280]
-offset_left = -713.0
-offset_top = -94.0
-offset_right = -575.0
-offset_bottom = -60.0
-text = "PNGTuber Plus"
-label_settings = SubResource("LabelSettings_w0f1f")
-
 [node name="EditControls" type="Node2D" parent="." unique_id=171313014]
 visible = false
 z_index = 4090
@@ -344,6 +327,26 @@ theme = ExtResource("7_m48a7")
 flat = true
 
 [node name="Fancy5" type="Sprite2D" parent="EditControls/Load" unique_id=376369722]
+position = Vector2(0, -5)
+texture = ExtResource("5_75a7k")
+hframes = 7
+frame = 6
+
+[node name="DataFolder" type="Sprite2D" parent="EditControls" unique_id=1446718333]
+self_modulate = Color(0.19516215, 0.29626536, 0.48251617, 1)
+position = Vector2(532, 32)
+texture = ExtResource("4_xenui")
+
+[node name="dataFolderButton" type="Button" parent="EditControls/DataFolder" unique_id=1325684767]
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+theme = ExtResource("7_m48a7")
+flat = true
+
+[node name="Fancy5" type="Sprite2D" parent="EditControls/DataFolder" unique_id=995081102]
+modulate = Color(0.9002581, 0.9999997, 0.9943771, 1)
 position = Vector2(0, -5)
 texture = ExtResource("5_75a7k")
 hframes = 7
@@ -486,9 +489,10 @@ text = "-Mouse click or scroll to select sprite
 label_settings = SubResource("LabelSettings_iu6ix")
 
 [node name="FileDialog" type="FileDialog" parent="." unique_id=248791299]
+oversampling_override = 1.0
 title = "Add Image"
 position = Vector2i(180, 160)
-size = Vector2i(360, 360)
+size = Vector2i(515, 360)
 ok_button_text = "Open"
 mode_overrides_title = false
 file_mode = 0
@@ -496,9 +500,10 @@ access = 1
 filters = PackedStringArray("*.png")
 
 [node name="ReplaceDialog" type="FileDialog" parent="." unique_id=610969052]
+oversampling_override = 1.0
 title = "Add Image"
 position = Vector2i(180, 160)
-size = Vector2i(360, 360)
+size = Vector2i(515, 360)
 ok_button_text = "Open"
 mode_overrides_title = false
 file_mode = 0
@@ -506,18 +511,20 @@ access = 1
 filters = PackedStringArray("*.png")
 
 [node name="SaveDialog" type="FileDialog" parent="." unique_id=272032475]
+oversampling_override = 1.0
 title = "Save Avatar"
 position = Vector2i(161, 160)
-size = Vector2i(392, 360)
+size = Vector2i(515, 360)
 ok_button_text = "Save"
 mode_overrides_title = false
 access = 1
 filters = PackedStringArray("*.save")
 
 [node name="LoadDialog" type="FileDialog" parent="." unique_id=697355594]
+oversampling_override = 1.0
 title = "Load Avatar"
 position = Vector2i(180, 160)
-size = Vector2i(360, 360)
+size = Vector2i(515, 360)
 ok_button_text = "Open"
 mode_overrides_title = false
 file_mode = 0
@@ -589,6 +596,7 @@ z_index = -4096
 [connection signal="pressed" from="EditControls/Exit/Button2" to="." method="swapMode"]
 [connection signal="pressed" from="EditControls/Save/saveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="EditControls/Load/loadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="EditControls/DataFolder/dataFolderButton" to="." method="_on_data_folder_button_pressed"]
 [connection signal="pressed" from="EditControls/ReplaceSprite/replaceButton" to="." method="_on_replace_button_pressed"]
 [connection signal="pressed" from="EditControls/DuplicateSprite/duplicateButton" to="." method="_on_duplicate_button_pressed"]
 [connection signal="pressed" from="Tutorial/Info/Button" to="Tutorial" method="_on_button_pressed"]
