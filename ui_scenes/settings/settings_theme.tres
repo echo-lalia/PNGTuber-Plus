@@ -1,7 +1,5 @@
 [gd_resource type="Theme" format=3 uid="uid://bhlg7q58fx183"]
 
-[ext_resource type="FontFile" uid="uid://btqgmptnh5k83" path="res://ui_scenes/theme_font.tres" id="1_itt8k"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1dvnl"]
 bg_color = Color(0, 0, 0, 0)
 border_color = Color(0.8, 0.8, 0.8, 0)
@@ -27,7 +25,6 @@ Button/constants/h_separation = 0
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 16
-Button/fonts/font = ExtResource("1_itt8k")
 Button/styles/disabled = SubResource("StyleBoxFlat_1dvnl")
 Button/styles/focus = SubResource("StyleBoxFlat_1dvnl")
 Button/styles/hover = SubResource("StyleBoxFlat_1dvnl")
