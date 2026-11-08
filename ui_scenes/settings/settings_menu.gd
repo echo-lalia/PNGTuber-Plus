@@ -77,6 +77,7 @@ func _on_confirm_pressed():
 	
 	Global.pushUpdate("Max fps set to " + str(Engine.max_fps) + ".")
 
+
 func _on_green_button_pressed():
 	get_viewport().transparent_bg = false
 	Global.backgroundColor = Color(0.0,1.0,0.0,1.0)

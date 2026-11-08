@@ -1,0 +1,35 @@
+[gd_resource type="Theme" format=3 uid="uid://bhlg7q58fx183"]
+
+[ext_resource type="FontFile" uid="uid://btqgmptnh5k83" path="res://ui_scenes/theme_font.tres" id="1_itt8k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1dvnl"]
+bg_color = Color(0, 0, 0, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0)
+anti_aliasing = false
+
+[resource]
+Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0)
+Button/colors/font_disabled_color = Color(0.87451, 0.87451, 0.87451, 0)
+Button/colors/font_focus_color = Color(0.94902, 0.94902, 0.94902, 0)
+Button/colors/font_hover_color = Color(0.94902, 0.94902, 0.94902, 0)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 0)
+Button/colors/font_outline_color = Color(1, 1, 1, 0)
+Button/colors/font_pressed_color = Color(1, 1, 1, 0)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 0)
+Button/colors/icon_hover_color = Color(1, 1, 1, 0)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 0)
+Button/colors/icon_normal_color = Color(1, 1, 1, 0)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 0)
+Button/constants/h_separation = 0
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_itt8k")
+Button/styles/disabled = SubResource("StyleBoxFlat_1dvnl")
+Button/styles/focus = SubResource("StyleBoxFlat_1dvnl")
+Button/styles/hover = SubResource("StyleBoxFlat_1dvnl")
+Button/styles/normal = SubResource("StyleBoxFlat_1dvnl")
+Button/styles/pressed = SubResource("StyleBoxFlat_1dvnl")
