@@ -32,7 +32,7 @@ var blinkTick = 0
 var playa:AudioStreamPlayer
 
 var speaking = false
-var spectrum
+var spectrum: AudioEffectSpectrumAnalyzerInstance
 var volume = 0
 var volumeSensitivity = 0.0
 var experimentalMicLoudness = false
@@ -73,10 +73,29 @@ func createMicrophone():
 	playa.play()
 
 
+
+## get the average of the wide voice range and the peak of the narrow range
+var _last_frame_volume: float = 0.0
+var _this_frame_volume: float = 0.0
+func _handle_custom_voice_detection_volume() -> float:
+	# New approach for getting voice volume frequency; get the average of the wide voice range and the peak of the narrow range.
+	var result: Vector2 = (
+		spectrum.get_magnitude_for_frequency_range(300, 3400, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_MAX) * 0.2
+		+ spectrum.get_magnitude_for_frequency_range(50, 14000, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_AVERAGE) * 1.5
+	
+	)
+	
+	_last_frame_volume = _this_frame_volume
+	_this_frame_volume = maxf(result.x, result.y)
+	
+	return _last_frame_volume + _this_frame_volume
+
+
 func _process(delta):
 	animationTick += 1
 	
-	volume = (AudioServer.get_bus_peak_volume_left_db(1, 0) + AudioServer.get_bus_peak_volume_right_db(1, 0)) / 1600.0 + 0.25 if experimentalMicLoudness else spectrum.get_magnitude_for_frequency_range(20, 20000).length()
+	#volume = (AudioServer.get_bus_peak_volume_left_db(1, 0) + AudioServer.get_bus_peak_volume_right_db(1, 0)) / 1600.0 + 0.25 if experimentalMicLoudness else spectrum.get_magnitude_for_frequency_range(300, 7000, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_AVERAGE).length()
+	volume = _handle_custom_voice_detection_volume()
 	
 	if playa != null:
 		volumeSensitivity = lerp(volumeSensitivity,0.0,delta*2)

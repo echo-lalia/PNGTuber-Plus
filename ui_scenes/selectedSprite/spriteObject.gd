@@ -103,7 +103,7 @@ func _ready():
 				print_debug("Failed to load image.")
 				queue_free()
 				return
-		
+	
 	var texture = ImageTexture.new()
 	texture = ImageTexture.create_from_image(img)
 	
