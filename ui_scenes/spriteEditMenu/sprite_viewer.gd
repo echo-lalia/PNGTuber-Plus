@@ -47,6 +47,7 @@ func setImage():
 	
 	$Buttons/Speaking.frame = Global.heldSprite.showOnTalk
 	$Buttons/Blinking.frame = Global.heldSprite.showOnBlink
+	$Buttons/Typing.frame = Global.heldSprite.showOnTyping
 	
 	$RotationalLimits/rotLimitMin.value = Global.heldSprite.rLimitMin
 	$RotationalLimits/RotLimitMin.text = "rotational limit min: " + str(Global.heldSprite.rLimitMin)
@@ -158,6 +159,14 @@ func _on_blinking_pressed():
 	
 	$Buttons/Blinking.frame = f
 	Global.heldSprite.showOnBlink = f
+
+
+func _on_typing_pressed() -> void:
+	var f = $Buttons/Typing.frame
+	f = (f+1) % 3
+	
+	$Buttons/Typing.frame = f
+	Global.heldSprite.showOnTyping = f
 
 
 func _on_trash_pressed():

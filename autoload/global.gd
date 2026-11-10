@@ -37,12 +37,18 @@ var volume = 0
 var volumeSensitivity = 0.0
 var experimentalMicLoudness = false
 
+var typing: bool = true
+
 var volumeLimit = 0.0
 var senseLimit = 0.0
 
 #Speak Signals
 signal startSpeaking
 signal stopSpeaking
+
+signal startTyping
+signal stopTyping
+
 
 var updatePusherNode = null
 
@@ -91,11 +97,36 @@ func _handle_custom_voice_detection_volume() -> float:
 	return _last_frame_volume + _this_frame_volume
 
 
+const INPUT_FINISHED_THRESHOLD_MS: int = 200
+var _prev_input_tick: int = -1
+var _current_input_tick: int = -1
+var last_input_timestamp: int = 0
+func _handle_inputevent_activity_detection() -> void:
+	_prev_input_tick = _current_input_tick
+	_current_input_tick = LastInputTick.get_last_input_tick()
+	
+	var current_timestamp := Time.get_ticks_msec()
+	
+	if _prev_input_tick != _current_input_tick:
+		last_input_timestamp = current_timestamp
+	
+	var new_typing: bool = (current_timestamp - last_input_timestamp < INPUT_FINISHED_THRESHOLD_MS)
+	
+	if typing and not new_typing:
+		typing = false
+		stopTyping.emit()
+	elif new_typing and not typing:
+		typing = true
+		startTyping.emit()
+
+
 func _process(delta):
 	animationTick += 1
 	
 	#volume = (AudioServer.get_bus_peak_volume_left_db(1, 0) + AudioServer.get_bus_peak_volume_right_db(1, 0)) / 1600.0 + 0.25 if experimentalMicLoudness else spectrum.get_magnitude_for_frequency_range(300, 7000, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_AVERAGE).length()
 	volume = _handle_custom_voice_detection_volume()
+	
+	_handle_inputevent_activity_detection()
 	
 	if playa != null:
 		volumeSensitivity = lerp(volumeSensitivity,0.0,delta*2)
@@ -295,6 +326,7 @@ func blinking():
 			blinkTick = -12
 	
 func epicFail(err):
+	push_error(error_string(err))
 	print(fail)
 	if fail == null:
 		return

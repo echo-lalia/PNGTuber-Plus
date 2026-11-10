@@ -223,7 +223,6 @@ text = "Zoom : 100%"
 horizontal_alignment = 2
 
 [node name="EditControls" type="Node2D" parent="." unique_id=171313014]
-visible = false
 z_index = 4090
 script = ExtResource("17_bf1ic")
 

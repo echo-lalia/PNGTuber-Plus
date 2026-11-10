@@ -1,4 +1,6 @@
 extends Node2D
+class_name SpriteObject
+
 
 var type = "sprite"
 
@@ -29,13 +31,25 @@ var imageSize = Vector2.ZERO
 
 @onready var outlineScene = preload("res://ui_scenes/selectedSprite/outline.tscn")
 
+
+
+enum VISIBILITY_CONDITION {
+	## Dont change visibility with this.
+	ignore = 0,
+	## Hide during this.
+	hide_sprite = 1,
+	## Only show during this.
+	show_sprite = 2,
+}
+
 #Visuals
 var mouseOffset = Vector2.ZERO
 var grabDelay = 0
 var size = Vector2(1,1)
 
-var showOnTalk = 0
-var showOnBlink = 0
+var showOnTalk: VISIBILITY_CONDITION = VISIBILITY_CONDITION.ignore
+var showOnBlink: VISIBILITY_CONDITION = VISIBILITY_CONDITION.ignore
+var showOnTyping: VISIBILITY_CONDITION = VISIBILITY_CONDITION.ignore
 
 var z = 0
 
@@ -238,7 +252,7 @@ func _process(delta):
 	if grabDelay > 0:
 		grabDelay -= 1
 	
-	talkBlink()
+	handle_talk_blink_visibility()
 	
 	animation()
 
@@ -257,11 +271,26 @@ func animation():
 func setZIndex():
 	sprite.z_index = z
 
-func talkBlink():
-	var faded = 0.2 * int(Global.main.editMode)
-	var value = (showOnTalk + (showOnBlink*3)) + (int(Global.speaking)*10) + (int(Global.blink)*20)
-	var yes = [0,10,20,30,1,21,12,32,3,13,4,15,26,36,27,38].has(int(value))
-	sprite.self_modulate.a = max(int(yes),faded)
+
+## Evaluate if the sprite should be shown, according to the given condition and global switch.
+func _parse_visibility_condition(condition: VISIBILITY_CONDITION, global_switch: bool) -> bool:
+	return  (
+		condition == VISIBILITY_CONDITION.ignore
+		or ((condition == VISIBILITY_CONDITION.show_sprite) == global_switch)
+	)
+
+
+func handle_talk_blink_visibility() -> void:
+	var showing_talk: bool = _parse_visibility_condition(showOnTalk, Global.speaking)
+	var showing_blink: bool = _parse_visibility_condition(showOnBlink, Global.blink)
+	var showing_typing: bool = _parse_visibility_condition(showOnTyping, Global.typing)
+	if showing_talk and showing_blink and showing_typing:
+		sprite.self_modulate.a = 1.0
+	elif Global.main.editMode:
+		sprite.self_modulate.a = 0.2
+	else:
+		sprite.self_modulate.a = 0.0
+
 
 func delete():
 	queue_free()
@@ -320,7 +349,7 @@ func drag(delta):
 	if dragSpeed == 0:
 		dragger.global_position = wob.global_position
 	else:
-		dragger.global_position = lerp(dragger.global_position,wob.global_position,1/dragSpeed)
+		dragger.global_position = lerp(dragger.global_position,wob.global_position, 1.0 / dragSpeed)
 		dragOrigin.global_position = dragger.global_position
 
 func wobble():

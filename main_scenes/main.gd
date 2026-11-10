@@ -328,6 +328,8 @@ func _on_load_dialog_file_selected(path):
 		sprite.showOnTalk = data[item]["showTalk"]
 		
 		sprite.showOnBlink = data[item]["showBlink"]
+
+		sprite.showOnTyping = data[item].get("showTyping", 0)#["showTyping"]
 		
 		if data[item].has("rLimitMin"):
 			sprite.rLimitMin = data[item]["rLimitMin"]
@@ -398,6 +400,7 @@ func _on_save_dialog_file_selected(path):
 			
 			data[id]["showTalk"] = child.showOnTalk
 			data[id]["showBlink"] = child.showOnBlink
+			data[id]["showTyping"] = child.showOnTyping
 			
 			data[id]["rLimitMin"] = child.rLimitMin
 			data[id]["rLimitMax"] = child.rLimitMax
@@ -431,16 +434,6 @@ func _on_link_button_pressed():
 	Global.pushUpdate("Linking sprite...")
 
 
-func _on_kofi_pressed():
-	OS.shell_open("https://ko-fi.com/kaiakairos")
-	Global.pushUpdate("Support me on ko-fi!")
-
-
-func _on_twitter_pressed():
-	OS.shell_open("https://twitter.com/kaiakairos")
-	Global.pushUpdate("Follow me on twitter!")
-
-
 func _on_replace_button_pressed():
 	if Global.heldSprite == null:
 		return
@@ -469,6 +462,7 @@ func _on_duplicate_button_pressed():
 	sprite.dragSpeed = Global.heldSprite.dragSpeed
 	sprite.showOnTalk = Global.heldSprite.showOnTalk
 	sprite.showOnBlink = Global.heldSprite.showOnBlink
+	sprite.showOnTyping = Global.heldSprite.showOnTyping
 	sprite.z = Global.heldSprite.z
 	
 	sprite.xFrq = Global.heldSprite.xFrq
