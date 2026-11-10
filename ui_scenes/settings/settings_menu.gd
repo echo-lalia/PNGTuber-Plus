@@ -21,6 +21,8 @@ func setvalues():
 	$BounceForce/bounceForce.value = Saving.settings["bounce"]
 	$BounceGravity/bounce.text = str(Saving.settings["gravity"])
 	$BounceGravity/bounceGravity.value = Saving.settings["gravity"]
+	$TypingStopDelay/ms.text = str(Saving.settings["input_finished_threshold_ms"])
+	$TypingStopDelay/stopMs.value = Saving.settings["input_finished_threshold_ms"]
 	
 	_on_check_box_toggled(Global.filtering)
 	
@@ -37,8 +39,7 @@ func setvalues():
 	for label in costumeLabels:
 		label.text = "costume " + str(tag) + " key: \"" + Global.main.costumeKeys[tag-1] + "\""
 		tag += 1
-	
-	$experimentalMicLoudness/checkmark.button_pressed = Global.experimentalMicLoudness
+
 	
 func _on_color_picker_button_color_changed(color):
 	get_viewport().transparent_bg = false
@@ -128,6 +129,13 @@ func _on_bounce_gravity_value_changed(value):
 	Saving.settings["gravity"] = value
 	
 	Global.pushUpdate("Bounce gravity value changed.")
+
+
+func _on_stop_ms_value_changed(value: float) -> void:
+	$TypingStopDelay/ms.text = str(int(value))
+	Global.input_finished_threshold_ms = int(value)
+	Global.pushUpdate("Bounce gravity value changed.")
+
 
 func costumeButtonsPressed(label,id):
 	label.text = "AWAITING INPUT"

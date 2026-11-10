@@ -64,6 +64,8 @@ func _ready():
 		Global.experimentalMicLoudness = Saving.settings["experimentalMicLoudness"]
 	else:
 		Saving.settings["experimentalMicLoudness"] = false
+	
+	input_finished_threshold_ms = Saving.settings.get("input_finished_threshold_ms", input_finished_threshold_ms)
 		
 	createMicrophone()
 
@@ -97,7 +99,12 @@ func _handle_custom_voice_detection_volume() -> float:
 	return _last_frame_volume + _this_frame_volume
 
 
-const INPUT_FINISHED_THRESHOLD_MS: int = 200
+var input_finished_threshold_ms: int = 200:
+	set(val):
+		if input_finished_threshold_ms != val:
+			input_finished_threshold_ms = val
+			Saving.settings["input_finished_threshold_ms"] = input_finished_threshold_ms
+			
 var _prev_input_tick: int = -1
 var _current_input_tick: int = -1
 var last_input_timestamp: int = 0
@@ -110,7 +117,7 @@ func _handle_inputevent_activity_detection() -> void:
 	if _prev_input_tick != _current_input_tick:
 		last_input_timestamp = current_timestamp
 	
-	var new_typing: bool = (current_timestamp - last_input_timestamp < INPUT_FINISHED_THRESHOLD_MS)
+	var new_typing: bool = (current_timestamp - last_input_timestamp < input_finished_threshold_ms)
 	
 	if typing and not new_typing:
 		typing = false

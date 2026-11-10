@@ -80,7 +80,6 @@ HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_44q16")
 HSlider/styles/slider = SubResource("StyleBoxFlat_t3qts")
 
 [node name="SettingsMenu" type="Node2D" unique_id=1563435644]
-visible = false
 script = ExtResource("1_ckdhy")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=625806018]
@@ -204,22 +203,6 @@ offset_top = 2.0
 offset_right = 16.0
 offset_bottom = 26.0
 
-[node name="experimentalMicLoudness" type="Node2D" parent="." unique_id=2038293204]
-position = Vector2(16, 360)
-
-[node name="Label" type="Label" parent="experimentalMicLoudness" unique_id=1315626803]
-offset_right = 138.0
-offset_bottom = 26.0
-size_flags_vertical = 1
-text = "    experimental mic loudness"
-autowrap_mode = 3
-
-[node name="checkmark" type="CheckBox" parent="experimentalMicLoudness" unique_id=865248181]
-offset_left = -8.0
-offset_top = 2.0
-offset_right = 16.0
-offset_bottom = 26.0
-
 [node name="bounceOnCostume" type="Node2D" parent="." unique_id=1931995278]
 position = Vector2(16, 272)
 
@@ -284,6 +267,33 @@ offset_bottom = 23.0
 theme = SubResource("Theme_e6tc4")
 max_value = 3000.0
 value = 1000.0
+scrollable = false
+
+[node name="TypingStopDelay" type="Node2D" parent="." unique_id=2029579324]
+position = Vector2(16, 359)
+
+[node name="Label" type="Label" parent="TypingStopDelay" unique_id=120043393]
+offset_left = -6.0
+offset_top = 1.0
+offset_right = 132.0
+offset_bottom = 35.0
+text = "typing stop ms:"
+
+[node name="ms" type="Label" parent="TypingStopDelay" unique_id=1546513526]
+offset_left = 117.0
+offset_right = 173.0
+offset_bottom = 26.0
+text = "250"
+
+[node name="stopMs" type="HSlider" parent="TypingStopDelay" unique_id=2005008547]
+offset_left = -7.0
+offset_top = 24.0
+offset_right = 158.745
+offset_bottom = 44.0
+theme = SubResource("Theme_e6tc4")
+max_value = 10000.0
+value = 200.0
+rounded = true
 scrollable = false
 
 [node name="CostumeInputs" type="Node2D" parent="." unique_id=752978609]
@@ -784,10 +794,10 @@ scrollable = false
 [connection signal="value_changed" from="MaxFPS/fpsDrag" to="." method="_on_fps_drag_value_changed"]
 [connection signal="pressed" from="MaxFPS/confirm" to="." method="_on_confirm_pressed"]
 [connection signal="toggled" from="AntiAliasing/CheckBox" to="." method="_on_check_box_toggled"]
-[connection signal="toggled" from="experimentalMicLoudness/checkmark" to="." method="_on_experimental_mic_loudness_toggle"]
 [connection signal="toggled" from="bounceOnCostume/costumeCheck" to="." method="_on_costume_check_toggled"]
 [connection signal="value_changed" from="BounceForce/bounceForce" to="." method="_on_bounce_force_value_changed"]
 [connection signal="value_changed" from="BounceGravity/bounceGravity" to="." method="_on_bounce_gravity_value_changed"]
+[connection signal="value_changed" from="TypingStopDelay/stopMs" to="." method="_on_stop_ms_value_changed"]
 [connection signal="pressed" from="CostumeInputs/ScrollContainer/VBoxContainer/costumeButton1" to="." method="_on_costume_button_1_pressed"]
 [connection signal="pressed" from="CostumeInputs/ScrollContainer/VBoxContainer/costumeButton1/delete1" to="." method="_on_delete_1_pressed"]
 [connection signal="pressed" from="CostumeInputs/ScrollContainer/VBoxContainer/costumeButton2" to="." method="_on_costume_button_2_pressed"]

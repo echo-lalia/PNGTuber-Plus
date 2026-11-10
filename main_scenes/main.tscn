@@ -141,6 +141,7 @@ theme = ExtResource("7_m48a7")
 flat = true
 
 [node name="SettingsMenu" parent="ControlPanel" unique_id=1285654328 instance=ExtResource("25_a76ao")]
+visible = false
 z_index = 4096
 position = Vector2(-431, -560)
 
@@ -223,6 +224,7 @@ text = "Zoom : 100%"
 horizontal_alignment = 2
 
 [node name="EditControls" type="Node2D" parent="." unique_id=171313014]
+visible = false
 z_index = 4090
 script = ExtResource("17_bf1ic")
 

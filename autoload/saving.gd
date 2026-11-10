@@ -56,7 +56,8 @@ var settings = {
 	"blinkSpeed":1.0,
 	"blinkChance":200,
 	"bounceOnCostumeChange":false,
-	"experimentalMicLoudness":false
+	"experimentalMicLoudness":false,
+	"input_finished_threshold_ms": 200,
 }
 
 var settingsPath = "user://settings.pngtp"
@@ -66,7 +67,7 @@ func _ready():
 	if datas == null:
 		return
 	else:
-		settings = datas.duplicate()
+		settings.merge(datas, true)
 
 func _exit_tree():
 	write_settings(settingsPath)
