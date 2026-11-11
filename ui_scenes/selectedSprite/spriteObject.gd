@@ -287,7 +287,7 @@ func handle_talk_blink_visibility() -> void:
 	if showing_talk and showing_blink and showing_typing:
 		sprite.self_modulate.a = 1.0
 	elif Global.main.editMode:
-		sprite.self_modulate.a = 0.2
+		sprite.self_modulate.a = 0.1
 	else:
 		sprite.self_modulate.a = 0.0
 
