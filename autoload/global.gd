@@ -82,21 +82,51 @@ func createMicrophone():
 
 
 
+## Force the microphone to refresh/restart to reduce latency.
+func _refresh_microphone() -> void:
+	var devices := AudioServer.get_input_device_list()
+	devices.erase("Default")
+	devices.erase(AudioServer.input_device)
+	
+	if devices:
+		# Switch to another input device for a moment. I'm not sure if this is actually required (or does anything)!
+		var correct_device: String = AudioServer.input_device
+		var alt_device: String = devices[0]
+		AudioServer.input_device = alt_device
+		AudioServer.input_device = correct_device
+	
+	Global.createMicrophone()
+
+
+
+
+const MIC_AUTO_REFRESH_MS: int = 60_000 * 10 
+var _last_refresh_time: int = Time.get_ticks_msec() + 10_000
+## Handle the automatic refreshing of the microphone to prevent forever-increasing latency.
+func _handle_microphone_refresh() -> void:
+	if not speaking and Time.get_ticks_msec() - _last_refresh_time > MIC_AUTO_REFRESH_MS:
+		# Refresh now
+		print("Auto refreshing microphone...")
+		_refresh_microphone()
+		_last_refresh_time = Time.get_ticks_msec()
+
+
+
+
 ## get the average of the wide voice range and the peak of the narrow range
 var _last_frame_volume: float = 0.0
 var _this_frame_volume: float = 0.0
 func _handle_custom_voice_detection_volume() -> float:
 	# New approach for getting voice volume frequency; get the average of the wide voice range and the peak of the narrow range.
 	var result: Vector2 = (
-		spectrum.get_magnitude_for_frequency_range(300, 3400, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_MAX) * 0.2
-		+ spectrum.get_magnitude_for_frequency_range(50, 14000, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_AVERAGE) * 1.5
-	
+		spectrum.get_magnitude_for_frequency_range(300, 3400, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_MAX) * 3
+		+ spectrum.get_magnitude_for_frequency_range(50, 14000, AudioEffectSpectrumAnalyzerInstance.MAGNITUDE_AVERAGE) * 10
 	)
 	
 	_last_frame_volume = _this_frame_volume
-	_this_frame_volume = maxf(result.x, result.y)
+	_this_frame_volume = pow(maxf(result.x, result.y), 0.3) * 0.2
 	
-	return _last_frame_volume + _this_frame_volume
+	return minf(_last_frame_volume, _this_frame_volume)
 
 
 var input_finished_threshold_ms: int = 200:
@@ -134,6 +164,7 @@ func _process(delta):
 	volume = _handle_custom_voice_detection_volume()
 	
 	_handle_inputevent_activity_detection()
+	_handle_microphone_refresh()
 	
 	if playa != null:
 		volumeSensitivity = lerp(volumeSensitivity,0.0,delta*2)
