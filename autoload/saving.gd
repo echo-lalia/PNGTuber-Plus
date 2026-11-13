@@ -58,6 +58,9 @@ var settings = {
 	"bounceOnCostumeChange":false,
 	"experimentalMicLoudness":false,
 	"input_finished_threshold_ms": 200,
+	"enable_outline": false,
+	"outline_color": var_to_str(Color.WHITE),
+	"outline_width": 6,
 }
 
 var settingsPath = "user://settings.pngtp"

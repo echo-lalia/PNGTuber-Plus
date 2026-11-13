@@ -7,6 +7,12 @@ corner_detail = 1
 shadow_color = Color(0, 0, 0, 0)
 anti_aliasing = false
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ds0l6"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+grow_begin = -16.0
+grow_end = -16.0
+
 [resource]
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0)
 Button/colors/font_disabled_color = Color(0.87451, 0.87451, 0.87451, 0)
@@ -30,3 +36,4 @@ Button/styles/focus = SubResource("StyleBoxFlat_1dvnl")
 Button/styles/hover = SubResource("StyleBoxFlat_1dvnl")
 Button/styles/normal = SubResource("StyleBoxFlat_1dvnl")
 Button/styles/pressed = SubResource("StyleBoxFlat_1dvnl")
+HSeparator/styles/separator = SubResource("StyleBoxLine_ds0l6")

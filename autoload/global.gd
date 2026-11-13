@@ -42,6 +42,14 @@ var typing: bool = true
 var volumeLimit = 0.0
 var senseLimit = 0.0
 
+
+# outline settins
+var enable_outline: bool = false
+var outline_color: Color = Color.WHITE
+var outline_width: int = 6
+signal outline_updated
+
+
 #Speak Signals
 signal startSpeaking
 signal stopSpeaking
