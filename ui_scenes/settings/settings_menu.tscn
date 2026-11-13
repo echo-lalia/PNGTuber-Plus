@@ -84,7 +84,7 @@ script = ExtResource("1_ckdhy")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=625806018]
 offset_right = 419.0
-offset_bottom = 423.0
+offset_bottom = 426.52
 texture = ExtResource("1_ylauk")
 region_rect = Rect2(0, 0, 48, 48)
 patch_margin_left = 8
@@ -190,7 +190,7 @@ offset_bottom = 28.0
 text = "confirm"
 
 [node name="AntiAliasing" type="Node2D" parent="." unique_id=1404991486]
-position = Vector2(16, 328)
+position = Vector2(16, 326)
 
 [node name="Label" type="Label" parent="AntiAliasing" unique_id=58319252]
 offset_right = 138.0
@@ -210,6 +210,7 @@ position = Vector2(16, 272)
 offset_right = 152.0
 offset_bottom = 78.0
 size_flags_vertical = 1
+theme_override_constants/line_spacing = -2
 text = "    costume change triggers bounce"
 autowrap_mode = 3
 
