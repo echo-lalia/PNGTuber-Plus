@@ -74,7 +74,12 @@ func _ready():
 		Saving.settings["experimentalMicLoudness"] = false
 	
 	input_finished_threshold_ms = Saving.settings.get("input_finished_threshold_ms", input_finished_threshold_ms)
-		
+	
+	enable_outline = Saving.settings["enable_outline"]
+	outline_color = str_to_var(Saving.settings["outline_color"])
+	outline_width = Saving.settings["outline_width"]
+	outline_updated.emit.call_deferred() # let sprites finish setup before setting up outlines.
+	
 	createMicrophone()
 
 func createMicrophone():

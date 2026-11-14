@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dbwl6wawm1w4s" path="res://ui_scenes/settings/magenta.png" id="6_vtbyu"]
 [ext_resource type="Texture2D" uid="uid://i0wc2ou3k7kv" path="res://ui_scenes/settings/editPencil.png" id="7_8meot"]
 [ext_resource type="Texture2D" uid="uid://gflmeocxfnrq" path="res://ui_scenes/settings/deleteHotkey.png" id="9_lywmf"]
+[ext_resource type="Script" uid="uid://c6bus5r6iuhyl" path="res://ui_scenes/settings/outline_settings.gd" id="11_8mjjx"]
 [ext_resource type="Script" uid="uid://dua1h7c3c0b60" path="res://ui_scenes/label_control_slider.gd" id="11_d7bol"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2r30l"]
@@ -292,39 +293,43 @@ scrollable = false
 [node name="HSeparator2" type="HSeparator" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer" unique_id=600543788]
 layout_mode = 2
 
-[node name="EnableOutline" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer" unique_id=176824897]
+[node name="OutlineSettings" type="VBoxContainer" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1169511858]
+layout_mode = 2
+script = ExtResource("11_8mjjx")
+
+[node name="EnableOutline" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings" unique_id=176824897]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/EnableOutline" unique_id=1672608045]
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/EnableOutline" unique_id=1672608045]
 layout_mode = 2
 text = "enable outline"
 
-[node name="CheckBox" type="CheckBox" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/EnableOutline" unique_id=1822278093]
+[node name="CheckBox" type="CheckBox" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/EnableOutline" unique_id=1822278093]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/EnableOutline" unique_id=827606451]
+[node name="Label2" type="Label" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/EnableOutline" unique_id=827606451]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "outline color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/EnableOutline" unique_id=153202998]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/EnableOutline" unique_id=153202998]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_stretch_ratio = 0.5
 
-[node name="OutlineWidth" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer" unique_id=424488687]
+[node name="OutlineWidth" type="HBoxContainer" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings" unique_id=424488687]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineWidth" unique_id=1648518852]
+[node name="Label" type="Label" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/OutlineWidth" unique_id=1648518852]
 layout_mode = 2
 text = "outline width:"
 
-[node name="OutlineWidthPx" type="Label" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineWidth" unique_id=670668705]
+[node name="OutlineWidthPx" type="Label" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/OutlineWidth" unique_id=670668705]
 layout_mode = 2
 text = "6"
 
-[node name="OutlineWidthSlider" type="HSlider" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineWidth" unique_id=1120873393 node_paths=PackedStringArray("value_label")]
+[node name="OutlineWidthSlider" type="HSlider" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/OutlineWidth" unique_id=1120873393 node_paths=PackedStringArray("value_label")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -335,7 +340,7 @@ value = 6.0
 rounded = true
 scrollable = false
 script = ExtResource("11_d7bol")
-value_label = NodePath("../Label")
+value_label = NodePath("../OutlineWidthPx")
 
 [node name="HSeparator4" type="HSeparator" parent="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1618157054]
 layout_mode = 2
@@ -842,6 +847,9 @@ centered = false
 [connection signal="value_changed" from="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/BlinkSpeed/blinkSpeed" to="." method="_on_blink_speed_value_changed"]
 [connection signal="value_changed" from="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/BlinkChance/blinkChance" to="." method="_on_blink_chance_value_changed"]
 [connection signal="value_changed" from="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/TypingStopDelay/stopMs" to="." method="_on_stop_ms_value_changed"]
+[connection signal="toggled" from="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/EnableOutline/CheckBox" to="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings" method="_on_check_box_toggled"]
+[connection signal="color_changed" from="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/EnableOutline/ColorPickerButton" to="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings" method="_on_color_picker_button_color_changed"]
+[connection signal="drag_ended" from="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings/OutlineWidth/OutlineWidthSlider" to="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/OutlineSettings" method="_on_outline_width_slider_drag_ended"]
 [connection signal="toggled" from="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer/AntiAliasing/AntiAliasingCheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="toggled" from="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/FlowContainer/bounceOnCostume/BounceOnCostumeCheck" to="." method="_on_costume_check_toggled"]
 [connection signal="pressed" from="NinePatchRect/ScrollContainer/MarginContainer/VBoxContainer/CostumeInputs/VBoxContainer/costumeButton1" to="." method="_on_costume_button_1_pressed"]

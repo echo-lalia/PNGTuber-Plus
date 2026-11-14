@@ -1,6 +1,7 @@
 extends Node2D
 class_name SpriteObject
 
+const SPRITE_OBJECT_GROUP: StringName = "SpriteObjectGroup"
 
 var type = "sprite"
 
@@ -96,8 +97,12 @@ var tick = 0
 #Vis toggle
 var toggle = "null"
 
+
+func _enter_tree() -> void:
+	add_to_group(SPRITE_OBJECT_GROUP)
+
+
 func _ready():
-	
 	Global.main.spriteVisToggles.connect(visToggle)
 	
 	var img = Image.new()
